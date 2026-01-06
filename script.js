@@ -5,7 +5,7 @@ const CONFIG = {
     authScriptURL: "https://script.google.com/macros/s/AKfycbxu23YNqJbDImYa8SFexSz-1SWKRrgkjx2xEM1Dazo-jb8t1PHosE15qkK3b3zDl7g7yA/exec", 
     vipScriptURL: "https://script.google.com/macros/s/AKfycbxkShY1Wra79CStNfC_DAH2C-0PmWMu2Eo-1piJZ7ZDs8er-yiYs1ccMNFR0hRz6nHwYg/exec",
     noticeText: "🚀 Welcome to ProToolsHub! 🔥 Get 50% OFF on Yearly Plan! ⚡ Instant Activation with Bkash/Nagad.",
-    logoImageURL: "https://www.clipartmax.com/png/middle/42-429025_technology-clipart-computer-tool-computer-tools-icon.png", 
+    logoImageURL: "https://drive.google.com/file/d/1X3D7ZC2BcM2s58oPMLWHodOH413a7A9i/view?usp=drive_link", 
     useImageLogo: true, 
     courses: [
         { title: "CPA Marketing", image: "https://e-laeltd.com/ela-admin/user/user_images/e-learning-and-earning-ltd-247985-CPA%20Marketing.jpg" },
@@ -522,6 +522,7 @@ function switchTab(tab) { const loginForm = document.getElementById('loginForm')
 function handleAuth(event, action) { event.preventDefault(); const form = event.target; const formData = new FormData(form); const msgDiv = document.getElementById('authMessage'); const btn = form.querySelector('button[type="submit"]'); const originalText = btn.innerText; btn.innerText = "Processing..."; btn.disabled = true; msgDiv.classList.add('hidden'); const data = new URLSearchParams(); data.append('action', action); for (const pair of formData) data.append(pair[0], pair[1]); fetch(CONFIG.authScriptURL, { method: 'POST', body: data }).then(res => res.json()).then(result => { msgDiv.classList.remove('hidden'); if (result.result === 'success') { msgDiv.className = "px-8 pb-6 text-center text-xs font-bold text-green-400"; msgDiv.innerText = result.message; if (action === 'login') { const userData = { isLoggedIn: true, name: result.userData?.name, email: result.userData?.email, plan: result.userData?.plan || "Free" }; localStorage.setItem('proToolsUser', JSON.stringify(userData)); setTimeout(() => { closeAuthModal(); location.reload(); }, 1000); } else { form.reset(); setTimeout(() => { switchTab('login'); msgDiv.innerText = "Payment Sent! Please Login."; }, 2000); } } else { msgDiv.className = "px-8 pb-6 text-center text-xs font-bold text-red-400"; msgDiv.innerText = result.message; } }).catch(err => { msgDiv.innerText = "Connection Failed."; }).finally(() => { btn.innerText = originalText; btn.disabled = false; }); }
 
 function logout() { localStorage.removeItem('proToolsUser'); location.reload(); }
+
 
 
 
