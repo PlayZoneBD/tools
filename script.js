@@ -5,14 +5,14 @@ const CONFIG = {
     authScriptURL: "https://script.google.com/macros/s/AKfycbxu23YNqJbDImYa8SFexSz-1SWKRrgkjx2xEM1Dazo-jb8t1PHosE15qkK3b3zDl7g7yA/exec", 
     vipScriptURL: "https://script.google.com/macros/s/AKfycbxkShY1Wra79CStNfC_DAH2C-0PmWMu2Eo-1piJZ7ZDs8er-yiYs1ccMNFR0hRz6nHwYg/exec",
     noticeText: "🚀 Welcome to ProToolsHub! 🔥 Get 50% OFF on Yearly Plan! ⚡ Instant Activation with Bkash/Nagad.",
-    logoImageURL: "https://www.pngkey.com/png/full/268-2682663_digital-digital-marketing-tools-png.png", 
+    logoImageURL: "https://icon2.cleanpng.com/20180802/bts/087302d690c4f566e3b6917e6652c692.webp", 
     useImageLogo: true, 
     courses: [
-        { title: "CPA Marketing", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&q=80" },
-        { title: "Ethical Hacking", image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&q=80" },
-        { title: "Advance Data Entry", image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=500&q=80" },
-        { title: "Python Automation", image: "https://images.unsplash.com/photo-1515879433056-bfab115c18e9?w=500&q=80" },
-        { title: "Email Secret Master", image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=500&q=80" },
+        { title: "CPA Marketing", image: "https://e-laeltd.com/ela-admin/user/user_images/e-learning-and-earning-ltd-247985-CPA%20Marketing.jpg" },
+        { title: "Ethical Hacking", image: "https://yepads.com/wp-content/uploads/2025/03/The-Ultimate-Guide-to-CPA-Marketing.png" },
+        { title: "https://lectera.com/info/storage/img/20221212/580c5a435c038603e0a0_808xFull.jpg" },
+        { title: "Python Automation", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpw3oWPLpr8uRVd4iVkISt4KpawK-otw7pOw&s" },
+        { title: "Email Secret Master", image: "https://cdn.searchenginejournal.com/wp-content/uploads/2024/10/black-hat-seo-37.png" },
     ]
 };
 
@@ -522,6 +522,7 @@ function switchTab(tab) { const loginForm = document.getElementById('loginForm')
 function handleAuth(event, action) { event.preventDefault(); const form = event.target; const formData = new FormData(form); const msgDiv = document.getElementById('authMessage'); const btn = form.querySelector('button[type="submit"]'); const originalText = btn.innerText; btn.innerText = "Processing..."; btn.disabled = true; msgDiv.classList.add('hidden'); const data = new URLSearchParams(); data.append('action', action); for (const pair of formData) data.append(pair[0], pair[1]); fetch(CONFIG.authScriptURL, { method: 'POST', body: data }).then(res => res.json()).then(result => { msgDiv.classList.remove('hidden'); if (result.result === 'success') { msgDiv.className = "px-8 pb-6 text-center text-xs font-bold text-green-400"; msgDiv.innerText = result.message; if (action === 'login') { const userData = { isLoggedIn: true, name: result.userData?.name, email: result.userData?.email, plan: result.userData?.plan || "Free" }; localStorage.setItem('proToolsUser', JSON.stringify(userData)); setTimeout(() => { closeAuthModal(); location.reload(); }, 1000); } else { form.reset(); setTimeout(() => { switchTab('login'); msgDiv.innerText = "Payment Sent! Please Login."; }, 2000); } } else { msgDiv.className = "px-8 pb-6 text-center text-xs font-bold text-red-400"; msgDiv.innerText = result.message; } }).catch(err => { msgDiv.innerText = "Connection Failed."; }).finally(() => { btn.innerText = originalText; btn.disabled = false; }); }
 
 function logout() { localStorage.removeItem('proToolsUser'); location.reload(); }
+
 
 
 
